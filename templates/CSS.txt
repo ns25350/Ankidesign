@@ -1,0 +1,292 @@
+/* ===== カラープリセット：元の4色とデザインを維持 ===== */
+.card, :root {
+  --bg-color: #FFEAD6;
+  --accent-color: #f29b7e;
+  --border-color: #FFD5B3;
+  --text-color: #4A3E3D;
+  --word-color: #333333;
+  --surface-color: #ffffff;
+  --paper-color: #FCFBF7;
+  --rule-color: #EDF2F7;
+  --paper-border-color: #EAE5D9;
+  --margin-line-color: #FFAAA6;
+  --translation-color: #666666;
+  --tab-bg-color: rgba(255, 255, 255, 0.6);
+  --tab-text-color: #666666;
+  --tab-border-color: rgba(0, 0, 0, 0.05);
+}
+.card.theme-green {
+  --bg-color: #E8F5E9;
+  --accent-color: #2E7D32;
+  --border-color: #C8E6C9;
+}
+.card.theme-blue {
+  --bg-color: #E3F2FD;
+  --accent-color: #1565C0;
+  --border-color: #BBDEFB;
+}
+.card.theme-pink {
+  --bg-color: #FCE4EC;
+  --accent-color: #C2185B;
+  --border-color: #F8BBD0;
+}
+
+/* ===== 全体ベース ===== */
+.card {
+  font-family: "Noto Sans JP", "Noto Sans", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  text-align: center;
+  padding: 15px 12px 25px;
+  margin: 0;
+  box-sizing: border-box;
+  height: auto;
+  min-height: 0;
+  line-height: 1.55;
+  transition: background-color 0.3s ease;
+}
+
+/* ===== 切り替えタブ ===== */
+.tab-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0 auto 16px;
+  max-width: 500px;
+}
+.tab-btn {
+  appearance: none;
+  -webkit-appearance: none;
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: bold;
+  line-height: 1.5;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background-color: var(--tab-bg-color);
+  color: var(--tab-text-color);
+  border: 1px solid var(--tab-border-color);
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.03);
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+.tab-btn.active {
+  background-color: var(--accent-color);
+  color: #ffffff;
+  border-color: var(--accent-color);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+}
+.tab-btn:focus-visible {
+  outline: 2px solid var(--accent-color);
+  outline-offset: 3px;
+}
+
+/* ===== 単語帳風カード：高さは内容に合わせて増える ===== */
+.top-area {
+  position: relative;
+  display: block;
+  background-color: var(--surface-color);
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.04);
+  margin: 0 auto 16px;
+  padding: 40px 20px 35px;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+  box-sizing: border-box;
+  overflow: visible;
+  border: 1px solid var(--border-color);
+  transition: border-color 0.3s ease;
+}
+.front-word {
+  font-size: 38px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  line-height: 1.4;
+  color: var(--word-color);
+}
+.front-word.text-mid { font-size: 30px; }
+.front-word.text-small { font-size: 22px; text-align: left; }
+
+.answer-slot {
+  margin-top: 20px;
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 1.6;
+  color: var(--accent-color);
+  height: auto;
+  max-height: none;
+  overflow: visible;
+  transition: color 0.3s ease;
+}
+.answer-slot:empty { display: none; }
+.answer-slot.text-long {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: left;
+}
+
+/* ===== ノート風デザイン ===== */
+.notebook-page {
+  position: relative;
+  background-color: var(--paper-color);
+  background-image: linear-gradient(var(--rule-color) 1px, transparent 1px);
+  background-size: 100% 28px;
+  line-height: 28px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  margin: 0 auto 12px;
+  width: 100%;
+  max-width: 500px;
+  height: auto;
+  max-height: none;
+  padding: 14px 16px 14px 50px;
+  box-sizing: border-box;
+  text-align: left;
+  overflow: visible;
+  border: 1px solid var(--paper-border-color);
+}
+.notebook-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 38px;
+  width: 1px;
+  background-color: var(--margin-line-color);
+}
+
+.info-bar {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 12px 40px;
+}
+.info-item {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  max-width: 100%;
+}
+.info-label {
+  font-size: 11px;
+  font-weight: bold;
+  color: #A0A0A0;
+  letter-spacing: 0.05em;
+}
+.info-value {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-color);
+}
+.example {
+  font-size: 17px;
+  font-weight: 500;
+  color: var(--word-color);
+}
+.jp {
+  font-size: 14px;
+  color: var(--translation-color);
+  margin-top: 4px;
+}
+
+/* ===== 長い語句・段落・画像でも、内容を切り捨てない ===== */
+.front-word, .answer-slot, .info-value, .example-block {
+  min-width: 0;
+  white-space: normal;
+  word-wrap: break-word;
+  overflow-wrap: anywhere;
+  word-break: normal;
+}
+.front-word > :first-child, .answer-slot > :first-child,
+.example > :first-child, .jp > :first-child { margin-top: 0; }
+.front-word > :last-child, .answer-slot > :last-child,
+.example > :last-child, .jp > :last-child { margin-bottom: 0; }
+.answer-slot p { margin: 0 0 0.75em; }
+.answer-slot p:last-child { margin-bottom: 0; }
+.answer-slot ul, .answer-slot ol {
+  text-align: left;
+  padding-left: 1.5em;
+  margin: 0.5em 0;
+}
+.answer-slot li + li { margin-top: 0.3em; }
+.top-area img, .notebook-page img,
+.top-area video, .notebook-page video {
+  max-width: 100%;
+  height: auto;
+}
+.top-area iframe, .notebook-page iframe { max-width: 100%; }
+.top-area pre, .notebook-page pre {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.top-area table, .notebook-page table {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+}
+.front-word::after, .answer-slot::after, .example-block::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+/* ===== ダークモード ===== */
+@media (prefers-color-scheme: dark) {
+  .card {
+    --bg-color: #332318;
+    --accent-color: #FF984D;
+    --border-color: #4A3525;
+    --text-color: #E5E5EA;
+    --word-color: #E5E5EA;
+    --surface-color: #1C1C1E;
+    --paper-color: #222224;
+    --rule-color: #2C2C2E;
+    --paper-border-color: #2C2C2E;
+    --margin-line-color: #632A2A;
+    --translation-color: #9A9A9E;
+    --tab-bg-color: rgba(255, 255, 255, 0.1);
+    --tab-text-color: #999999;
+    --tab-border-color: rgba(255, 255, 255, 0.05);
+  }
+  .card.theme-green { --bg-color: #1A281C; --accent-color: #81C784; --border-color: #2D3D30; }
+  .card.theme-blue { --bg-color: #162433; --accent-color: #64B5F6; --border-color: #29384A; }
+  .card.theme-pink { --bg-color: #331C24; --accent-color: #F06292; --border-color: #4A2B35; }
+}
+
+/* AnkiのナイトモードがOSの設定と異なる場合にも対応 */
+.card.nightMode, .nightMode .card, .card.night_mode, .night_mode .card {
+  --bg-color: #332318;
+  --accent-color: #FF984D;
+  --border-color: #4A3525;
+  --text-color: #E5E5EA;
+  --word-color: #E5E5EA;
+  --surface-color: #1C1C1E;
+  --paper-color: #222224;
+  --rule-color: #2C2C2E;
+  --paper-border-color: #2C2C2E;
+  --margin-line-color: #632A2A;
+  --translation-color: #9A9A9E;
+  --tab-bg-color: rgba(255, 255, 255, 0.1);
+  --tab-text-color: #999999;
+  --tab-border-color: rgba(255, 255, 255, 0.05);
+}
+.card.nightMode.theme-green, .nightMode .card.theme-green,
+.card.night_mode.theme-green, .night_mode .card.theme-green {
+  --bg-color: #1A281C; --accent-color: #81C784; --border-color: #2D3D30;
+}
+.card.nightMode.theme-blue, .nightMode .card.theme-blue,
+.card.night_mode.theme-blue, .night_mode .card.theme-blue {
+  --bg-color: #162433; --accent-color: #64B5F6; --border-color: #29384A;
+}
+.card.nightMode.theme-pink, .nightMode .card.theme-pink,
+.card.night_mode.theme-pink, .night_mode .card.theme-pink {
+  --bg-color: #331C24; --accent-color: #F06292; --border-color: #4A2B35;
+}
+
+@media screen and (max-width: 480px) {
+  .front-word.text-small { font-size: 18px; }
+}

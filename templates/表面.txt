@@ -1,0 +1,55 @@
+<div class="tab-container" role="group" aria-label="カードの色">
+  <button type="button" class="tab-btn" data-theme="theme-orange" aria-pressed="false" onclick="changeAnkiTheme('theme-orange')">グレープフルーツ</button>
+  <button type="button" class="tab-btn" data-theme="theme-green" aria-pressed="false" onclick="changeAnkiTheme('theme-green')">ミント</button>
+  <button type="button" class="tab-btn" data-theme="theme-blue" aria-pressed="false" onclick="changeAnkiTheme('theme-blue')">ソーダ</button>
+  <button type="button" class="tab-btn" data-theme="theme-pink" aria-pressed="false" onclick="changeAnkiTheme('theme-pink')">サクラ</button>
+</div>
+
+<div class="top-area">
+  <div class="front-word" id="front-text">{{表面}}</div>
+  <div class="answer-slot" id="answer-slot"></div>
+</div>
+
+<div class="notebook-page">
+  <div class="info-bar">
+    <div class="info-item">
+      <div class="info-label">No.</div>
+      <div class="info-value">{{単語番号}}</div>
+    </div>
+    <div class="info-item">
+      <div class="info-label">品詞</div>
+      <div class="info-value">{{品詞}}</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function () {
+  var themes = ["theme-orange", "theme-green", "theme-blue", "theme-pink"];
+
+  window.changeAnkiTheme = function (theme) {
+    if (themes.indexOf(theme) === -1) theme = "theme-orange";
+    var card = document.querySelector(".card") || document.body;
+    themes.forEach(function (name) { card.classList.remove(name); });
+    card.classList.add(theme);
+    document.querySelectorAll(".tab-btn").forEach(function (tab) {
+      var active = tab.getAttribute("data-theme") === theme;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    window.ankiCustomTheme = theme;
+    try { localStorage.setItem("anki-custom-theme", theme); } catch (error) {}
+  };
+
+  var savedTheme = window.ankiCustomTheme || "theme-orange";
+  try { savedTheme = localStorage.getItem("anki-custom-theme") || savedTheme; } catch (error) {}
+  window.changeAnkiTheme(savedTheme);
+
+  var frontText = document.getElementById("front-text");
+  if (frontText) {
+    var length = (frontText.textContent || "").trim().length;
+    frontText.classList.toggle("text-small", length > 20);
+    frontText.classList.toggle("text-mid", length > 10 && length <= 20);
+  }
+})();
+</script>

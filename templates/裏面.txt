@@ -1,0 +1,56 @@
+{{FrontSide}}
+
+<!-- フィールドをJavaScriptの文字列に埋め込まず、HTMLとして受け取ります。 -->
+<div id="answer-content" hidden>{{裏面}}</div>
+
+{{#例文1}}
+<div class="notebook-page">
+  <div class="example-block">
+    <div class="example">{{例文1}}</div>
+    {{#日本語訳1}}<div class="jp">{{日本語訳1}}</div>{{/日本語訳1}}
+  </div>
+</div>
+{{/例文1}}
+
+<script>
+(function () {
+  // AnkiではFrontSide内のスクリプトが裏面で実行されない場合があるため、
+  // 色の切替と文字サイズの設定を裏面でも初期化します。
+  var themes = ["theme-orange", "theme-green", "theme-blue", "theme-pink"];
+
+  window.changeAnkiTheme = function (theme) {
+    if (themes.indexOf(theme) === -1) theme = "theme-orange";
+    var card = document.querySelector(".card") || document.body;
+    themes.forEach(function (name) { card.classList.remove(name); });
+    card.classList.add(theme);
+    document.querySelectorAll(".tab-btn").forEach(function (tab) {
+      var active = tab.getAttribute("data-theme") === theme;
+      tab.classList.toggle("active", active);
+      tab.setAttribute("aria-pressed", active ? "true" : "false");
+    });
+    window.ankiCustomTheme = theme;
+    try { localStorage.setItem("anki-custom-theme", theme); } catch (error) {}
+  };
+
+  var savedTheme = window.ankiCustomTheme || "theme-orange";
+  try { savedTheme = localStorage.getItem("anki-custom-theme") || savedTheme; } catch (error) {}
+  window.changeAnkiTheme(savedTheme);
+
+  var frontText = document.getElementById("front-text");
+  if (frontText) {
+    var frontLength = (frontText.textContent || "").trim().length;
+    frontText.classList.toggle("text-small", frontLength > 20);
+    frontText.classList.toggle("text-mid", frontLength > 10 && frontLength <= 20);
+  }
+
+  var slot = document.getElementById("answer-slot");
+  var content = document.getElementById("answer-content");
+  if (slot && content) {
+    while (slot.firstChild) slot.removeChild(slot.firstChild);
+    while (content.firstChild) slot.appendChild(content.firstChild);
+    content.parentNode.removeChild(content);
+    var answerLength = (slot.textContent || "").trim().length;
+    slot.classList.toggle("text-long", answerLength > 40);
+  }
+})();
+</script>

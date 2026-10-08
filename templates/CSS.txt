@@ -1,16 +1,15 @@
-/* ===== Happy Hues参考：ミントの背景・紺の文字・黄色の答えラベル ===== */
+/* ===== 淡い青灰色と白：Apple風の落ち着いた学習カード ===== */
 .card, :root {
-  --page-color: #e3f6f5;
+  --page-color: #f0f4f9;
   --surface-color: #fffffe;
-  --text-primary: #272343;
-  --text-secondary: #50636b;
-  --answer-color: #272343;
-  --line-color: #c1dcda;
-  --selection-color: #ffd803;
-  --selection-text: #272343;
-  --highlight-color: #ffd803;
-  --highlight-text: #272343;
-  --link-color: #245c60;
+  --text-primary: #232933;
+  --text-secondary: #636d7b;
+  --answer-color: #4a6180;
+  --line-color: #dce3ec;
+  --selection-color: #d8eefe;
+  --selection-text: #232933;
+  --link-color: #35628b;
+  --card-shadow: 0 4px 24px rgba(35, 41, 51, 0.045);
   --content-width: 540px;
 }
 
@@ -18,12 +17,12 @@
 .card {
   box-sizing: border-box;
   margin: 0;
-  padding: 24px 16px 36px;
-  padding: max(24px, env(safe-area-inset-top)) max(16px, env(safe-area-inset-right))
-    max(36px, env(safe-area-inset-bottom)) max(16px, env(safe-area-inset-left));
+  padding: 36px 20px 40px;
+  padding: max(36px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+    max(40px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
   color: var(--text-primary);
   background-color: var(--page-color);
-  font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", "Noto Sans JP", sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", "Noto Sans JP", sans-serif;
   font-size: 17px;
   line-height: 1.6;
   text-align: center;
@@ -46,55 +45,50 @@
   max-height: none;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 44px 32px;
+  padding: 44px 36px;
   overflow: visible;
   background-color: var(--surface-color);
-  border: 1px solid var(--line-color);
-  border-radius: 16px;
+  border: 0;
+  border-radius: 26px;
+  box-shadow: var(--card-shadow);
 }
 .front-word {
   min-width: 0;
-  font-family: Georgia, "Times New Roman", "Noto Serif JP", serif;
-  font-size: 40px;
-  font-weight: 700;
+  font-size: 38px;
+  font-weight: 600;
   line-height: 1.35;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.025em;
   text-align: center;
 }
-.front-word.text-mid { font-size: 32px; }
+.front-word.text-mid { font-size: 30px; }
 .front-word.text-small { font-size: 22px; line-height: 1.5; }
 
 /* 空の表面では、答えの区切り線・余白も表示しません。 */
 .answer-slot {
   height: auto;
   max-height: none;
-  margin-top: 28px;
-  padding-top: 24px;
+  margin-top: 30px;
+  padding-top: 26px;
   overflow: visible;
   border-top: 1px solid var(--line-color);
 }
 .answer-slot:empty { display: none; }
 .answer-label, .example-label {
-  margin: 0 0 8px;
+  margin: 0 0 12px;
   color: var(--text-secondary);
   font-size: 12px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.4;
   text-align: left;
 }
 .answer-label {
-  display: table;
-  margin-bottom: 12px;
-  padding: 4px 10px;
-  color: var(--highlight-text);
-  background-color: var(--highlight-color);
-  border-radius: 4px;
+  text-align: center;
 }
 .answer-text {
   min-width: 0;
   color: var(--answer-color);
   font-size: 24px;
-  font-weight: 600;
+  font-weight: 500;
   line-height: 1.6;
   text-align: center;
 }
@@ -118,30 +112,41 @@
   text-align: left;
 }
 .info-bar {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 24px;
-  padding: 24px 8px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 20px;
+  padding: 24px 12px;
 }
-.info-item { min-width: 0; }
+.info-item {
+  display: flex;
+  align-items: baseline;
+  min-width: 0;
+  gap: 8px;
+}
+.info-item + .info-item {
+  padding-left: 20px;
+  border-left: 1px solid var(--line-color);
+}
 .info-label {
-  margin-bottom: 4px;
+  flex-shrink: 0;
   color: var(--text-secondary);
   font-size: 12px;
   line-height: 1.4;
 }
 .info-value {
+  min-width: 0;
   color: var(--text-primary);
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 14px;
+  font-weight: 500;
   line-height: 1.5;
   font-variant-numeric: tabular-nums;
 }
 .example-card {
-  padding: 24px 8px 0;
+  padding: 24px 24px 0;
   border-top: 1px solid var(--line-color);
 }
-.example { font-size: 17px; font-weight: 500; line-height: 1.75; }
+.example { font-size: 17px; font-weight: 400; line-height: 1.7; }
 .jp {
   margin-top: 8px;
   color: var(--text-secondary);
@@ -184,40 +189,45 @@
 /* ===== ダークモード：OSとAnkiの両方に対応 ===== */
 @media (prefers-color-scheme: dark) {
   .card {
-    --page-color: #1b2038;
-    --surface-color: #232946;
-    --text-primary: #fffffe;
-    --text-secondary: #b8c1ec;
-    --answer-color: #bae8e8;
-    --line-color: #485475;
-    --selection-color: #ffd803;
-    --link-color: #bae8e8;
+    --page-color: #15171b;
+    --surface-color: #202329;
+    --text-primary: #f4f6f9;
+    --text-secondary: #abb3c0;
+    --answer-color: #b7cce2;
+    --line-color: #363c46;
+    --selection-color: #314a65;
+    --selection-text: #f4f6f9;
+    --link-color: #adcbea;
+    --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   }
 }
 .card.nightMode, .nightMode .card, .card.night_mode, .night_mode .card {
-  --page-color: #1b2038;
-  --surface-color: #232946;
-  --text-primary: #fffffe;
-  --text-secondary: #b8c1ec;
-  --answer-color: #bae8e8;
-  --line-color: #485475;
-  --selection-color: #ffd803;
-  --link-color: #bae8e8;
+  --page-color: #15171b;
+  --surface-color: #202329;
+  --text-primary: #f4f6f9;
+  --text-secondary: #abb3c0;
+  --answer-color: #b7cce2;
+  --line-color: #363c46;
+  --selection-color: #314a65;
+  --selection-text: #f4f6f9;
+  --link-color: #adcbea;
+  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* ===== スマートフォン ===== */
 @media screen and (max-width: 480px) {
   .card {
-    padding: 16px 12px 28px;
-    padding: max(16px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right))
-      max(28px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+    padding: 24px 20px 32px;
+    padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
+      max(32px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
   }
-  .top-area { padding: 32px 24px; }
-  .front-word { font-size: 36px; }
-  .front-word.text-mid { font-size: 30px; }
+  .top-area { padding: 34px 26px; border-radius: 24px; }
+  .front-word { font-size: 34px; }
+  .front-word.text-mid { font-size: 28px; }
   .front-word.text-small { font-size: 20px; }
   .answer-text { font-size: 22px; }
   .answer-text.text-long { font-size: 18px; }
-  .info-bar { gap: 16px; padding: 24px 4px; }
-  .example-card { padding: 24px 4px 0; }
+  .info-bar { gap: 16px; padding: 22px 4px; }
+  .info-item + .info-item { padding-left: 16px; }
+  .example-card { padding: 22px 16px 0; }
 }

@@ -1,16 +1,17 @@
-<div class="tab-container" role="group" aria-label="カードの色">
+<div class="tab-container" role="group" aria-label="カラーテーマ">
   <button type="button" class="tab-btn" data-theme="theme-orange" aria-pressed="false" onclick="changeAnkiTheme('theme-orange')">グレープフルーツ</button>
   <button type="button" class="tab-btn" data-theme="theme-green" aria-pressed="false" onclick="changeAnkiTheme('theme-green')">ミント</button>
   <button type="button" class="tab-btn" data-theme="theme-blue" aria-pressed="false" onclick="changeAnkiTheme('theme-blue')">ソーダ</button>
   <button type="button" class="tab-btn" data-theme="theme-pink" aria-pressed="false" onclick="changeAnkiTheme('theme-pink')">サクラ</button>
 </div>
 
-<div class="top-area">
+<main class="top-area">
   <div class="front-word" id="front-text">{{表面}}</div>
   <div class="answer-slot" id="answer-slot"></div>
-</div>
+</main>
 
-<div class="notebook-page">
+<!-- 情報枠の内側の余白は、各info-itemで確保します。 -->
+<section class="detail-card info-card" aria-label="単語情報">
   <div class="info-bar">
     <div class="info-item">
       <div class="info-label">No.</div>
@@ -21,7 +22,7 @@
       <div class="info-value">{{品詞}}</div>
     </div>
   </div>
-</div>
+</section>
 
 <script>
 (function () {

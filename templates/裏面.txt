@@ -1,15 +1,15 @@
 {{FrontSide}}
 
-<!-- フィールドをJavaScriptの文字列に埋め込まず、HTMLとして受け取ります。 -->
-<div id="answer-content" hidden>{{裏面}}</div>
+<!-- フィールドのHTMLをそのまま受け取り、答えの場所へ移動します。 -->
+<div id="back-content-source" hidden>{{裏面}}</div>
 
 {{#例文1}}
-<div class="notebook-page">
+<section class="detail-card example-card" aria-label="例文">
   <div class="example-block">
     <div class="example">{{例文1}}</div>
     {{#日本語訳1}}<div class="jp">{{日本語訳1}}</div>{{/日本語訳1}}
   </div>
-</div>
+</section>
 {{/例文1}}
 
 <script>
@@ -44,13 +44,16 @@
   }
 
   var slot = document.getElementById("answer-slot");
-  var content = document.getElementById("answer-content");
+  var content = document.getElementById("back-content-source");
   if (slot && content) {
     while (slot.firstChild) slot.removeChild(slot.firstChild);
     while (content.firstChild) slot.appendChild(content.firstChild);
     content.parentNode.removeChild(content);
-    var answerLength = (slot.textContent || "").trim().length;
-    slot.classList.toggle("text-long", answerLength > 40);
+    var answerLength = (slot.textContent || "").replace(/\u200b/g, "").trim().length;
+    var media = slot.querySelector("img, video, audio, iframe, svg, canvas, hr, table");
+    if (!answerLength && !media) slot.innerHTML = "";
+    var structuredAnswer = slot.querySelector("ul, ol, table, pre, blockquote");
+    slot.classList.toggle("text-long", answerLength > 40 || !!structuredAnswer);
   }
 })();
 </script>

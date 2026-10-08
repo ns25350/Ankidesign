@@ -1,41 +1,21 @@
 {{FrontSide}}
 
-<!-- フィールドのHTMLをそのまま受け取り、答えの場所へ移動します。 -->
-<div id="back-content-source" hidden>{{裏面}}</div>
+<div id="back-content-source" hidden>
+  <div class="answer-label">答え</div>
+  <div class="answer-text">{{裏面}}</div>
+</div>
 
 {{#例文1}}
-<section class="detail-card example-card" aria-label="例文">
-  <div class="example-block">
-    <div class="example">{{例文1}}</div>
-    {{#日本語訳1}}<div class="jp">{{日本語訳1}}</div>{{/日本語訳1}}
-  </div>
+<section class="example-card" aria-label="例文">
+  <h2 class="example-label">例文</h2>
+  <div class="example">{{例文1}}</div>
+  {{#日本語訳1}}<div class="jp">{{日本語訳1}}</div>{{/日本語訳1}}
 </section>
 {{/例文1}}
 
 <script>
 (function () {
-  // AnkiではFrontSide内のスクリプトが裏面で実行されない場合があるため、
-  // 色の切替と文字サイズの設定を裏面でも初期化します。
-  var themes = ["theme-orange", "theme-green", "theme-blue", "theme-pink"];
-
-  window.changeAnkiTheme = function (theme) {
-    if (themes.indexOf(theme) === -1) theme = "theme-orange";
-    var card = document.querySelector(".card") || document.body;
-    themes.forEach(function (name) { card.classList.remove(name); });
-    card.classList.add(theme);
-    document.querySelectorAll(".tab-btn").forEach(function (tab) {
-      var active = tab.getAttribute("data-theme") === theme;
-      tab.classList.toggle("active", active);
-      tab.setAttribute("aria-pressed", active ? "true" : "false");
-    });
-    window.ankiCustomTheme = theme;
-    try { localStorage.setItem("anki-custom-theme", theme); } catch (error) {}
-  };
-
-  var savedTheme = window.ankiCustomTheme || "theme-orange";
-  try { savedTheme = localStorage.getItem("anki-custom-theme") || savedTheme; } catch (error) {}
-  window.changeAnkiTheme(savedTheme);
-
+  // FrontSideのスクリプトが実行されない場合にも文字サイズを整えます。
   var frontText = document.getElementById("front-text");
   if (frontText) {
     var frontLength = (frontText.textContent || "").trim().length;
@@ -44,16 +24,20 @@
   }
 
   var slot = document.getElementById("answer-slot");
-  var content = document.getElementById("back-content-source");
-  if (slot && content) {
+  var source = document.getElementById("back-content-source");
+  if (slot && source) {
     while (slot.firstChild) slot.removeChild(slot.firstChild);
-    while (content.firstChild) slot.appendChild(content.firstChild);
-    content.parentNode.removeChild(content);
-    var answerLength = (slot.textContent || "").replace(/\u200b/g, "").trim().length;
-    var media = slot.querySelector("img, video, audio, iframe, svg, canvas, hr, table");
-    if (!answerLength && !media) slot.innerHTML = "";
-    var structuredAnswer = slot.querySelector("ul, ol, table, pre, blockquote");
-    slot.classList.toggle("text-long", answerLength > 40 || !!structuredAnswer);
+    var answer = source.querySelector(".answer-text");
+    if (answer) {
+      var length = (answer.textContent || "").replace(/\u200b/g, "").trim().length;
+      var media = answer.querySelector("img, video, audio, iframe, svg, canvas, hr, table");
+      if (length || media) {
+        var structured = answer.querySelector("ul, ol, table, pre, blockquote");
+        answer.classList.toggle("text-long", length > 40 || !!structured);
+        while (source.firstChild) slot.appendChild(source.firstChild);
+      }
+    }
+    source.parentNode.removeChild(source);
   }
 })();
 </script>

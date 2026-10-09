@@ -1,9 +1,12 @@
-<main class="top-area" aria-label="学習カード">
+<div class="divider" aria-hidden="true"></div>
+<div class="top-area" aria-label="学習カード">
   <div class="front-word" id="front-text">{{表面}}</div>
   <div class="answer-slot" id="answer-slot"></div>
-</main>
+</div>
 
-<section class="info-card" aria-label="単語情報">
+<div class="divider" aria-hidden="true"></div>
+
+<div class="info-card" role="group" aria-label="単語情報">
   <div class="info-bar">
     <div class="info-item">
       <div class="info-label">No.</div>
@@ -14,7 +17,7 @@
       <div class="info-value">{{品詞}}</div>
     </div>
   </div>
-</section>
+</div>
 
 <script>
 (function () {

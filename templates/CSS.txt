@@ -1,15 +1,14 @@
-/* ===== 淡い青灰色と白：Apple風の落ち着いた学習カード ===== */
+/* ===== 淡い青灰色と白：細い線と文字の強弱で整理する学習カード ===== */
 .card, :root {
   --page-color: #f0f4f9;
   --surface-color: #fffffe;
   --text-primary: #232933;
   --text-secondary: #636d7b;
   --answer-color: #4a6180;
-  --line-color: #dce3ec;
+  --line-color: #cdd5df;
   --selection-color: #d8eefe;
   --selection-text: #232933;
   --link-color: #35628b;
-  --card-shadow: 0 4px 24px rgba(35, 41, 51, 0.045);
   --content-width: 540px;
 }
 
@@ -45,30 +44,29 @@
   max-height: none;
   box-sizing: border-box;
   margin: 0 auto;
-  padding: 44px 36px;
+  padding: 36px 32px;
   overflow: visible;
   background-color: var(--surface-color);
-  border: 0;
-  border-radius: 26px;
-  box-shadow: var(--card-shadow);
+  border: 1px solid var(--line-color);
+  border-radius: 12px;
 }
 .front-word {
   min-width: 0;
-  font-size: 38px;
-  font-weight: 600;
-  line-height: 1.35;
+  font-size: 42px;
+  font-weight: 700;
+  line-height: 1.25;
   letter-spacing: -0.025em;
-  text-align: center;
+  text-align: left;
 }
-.front-word.text-mid { font-size: 30px; }
-.front-word.text-small { font-size: 22px; line-height: 1.5; }
+.front-word.text-mid { font-size: 34px; }
+.front-word.text-small { font-size: 22px; line-height: 1.5; letter-spacing: 0; }
 
 /* 空の表面では、答えの区切り線・余白も表示しません。 */
 .answer-slot {
   height: auto;
   max-height: none;
-  margin-top: 30px;
-  padding-top: 26px;
+  margin-top: 26px;
+  padding-top: 22px;
   overflow: visible;
   border-top: 1px solid var(--line-color);
 }
@@ -77,12 +75,9 @@
   margin: 0 0 12px;
   color: var(--text-secondary);
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
   line-height: 1.4;
   text-align: left;
-}
-.answer-label {
-  text-align: center;
 }
 .answer-text {
   min-width: 0;
@@ -90,7 +85,7 @@
   font-size: 24px;
   font-weight: 500;
   line-height: 1.6;
-  text-align: center;
+  text-align: left;
 }
 .answer-text.text-long {
   color: var(--text-primary);
@@ -114,9 +109,9 @@
 .info-bar {
   display: flex;
   align-items: baseline;
-  justify-content: center;
+  justify-content: flex-start;
   gap: 20px;
-  padding: 24px 12px;
+  padding: 20px 32px;
 }
 .info-item {
   display: flex;
@@ -143,7 +138,7 @@
   font-variant-numeric: tabular-nums;
 }
 .example-card {
-  padding: 24px 24px 0;
+  padding: 22px 32px 0;
   border-top: 1px solid var(--line-color);
 }
 .example { font-size: 17px; font-weight: 400; line-height: 1.7; }
@@ -194,11 +189,10 @@
     --text-primary: #f4f6f9;
     --text-secondary: #abb3c0;
     --answer-color: #b7cce2;
-    --line-color: #363c46;
+    --line-color: #48515f;
     --selection-color: #314a65;
     --selection-text: #f4f6f9;
     --link-color: #adcbea;
-    --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
   }
 }
 .card.nightMode, .nightMode .card, .card.night_mode, .night_mode .card {
@@ -207,11 +201,10 @@
   --text-primary: #f4f6f9;
   --text-secondary: #abb3c0;
   --answer-color: #b7cce2;
-  --line-color: #363c46;
+  --line-color: #48515f;
   --selection-color: #314a65;
   --selection-text: #f4f6f9;
   --link-color: #adcbea;
-  --card-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
 }
 
 /* ===== スマートフォン ===== */
@@ -221,13 +214,13 @@
     padding: max(24px, env(safe-area-inset-top)) max(20px, env(safe-area-inset-right))
       max(32px, env(safe-area-inset-bottom)) max(20px, env(safe-area-inset-left));
   }
-  .top-area { padding: 34px 26px; border-radius: 24px; }
-  .front-word { font-size: 34px; }
-  .front-word.text-mid { font-size: 28px; }
+  .top-area { padding: 28px 24px; }
+  .front-word { font-size: 36px; }
+  .front-word.text-mid { font-size: 32px; }
   .front-word.text-small { font-size: 20px; }
   .answer-text { font-size: 22px; }
   .answer-text.text-long { font-size: 18px; }
-  .info-bar { gap: 16px; padding: 22px 4px; }
+  .info-bar { gap: 16px; padding: 20px 24px; }
   .info-item + .info-item { padding-left: 16px; }
-  .example-card { padding: 22px 16px 0; }
+  .example-card { padding: 20px 24px 0; }
 }
